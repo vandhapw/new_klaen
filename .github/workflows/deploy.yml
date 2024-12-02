@@ -30,6 +30,7 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
+        debug: true
         script: |
           cd /var/www/production  # Change to your project directory
           git pull origin main    # Pull latest changes
