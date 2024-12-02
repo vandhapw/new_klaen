@@ -1,0 +1,150 @@
+{% extends "dashboard/base-admin.html" %}
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <!-- Main Content Area -->
+        <div class="col-12">
+            <div class="row">
+                <!-- Device List and Status Information -->
+                <div class="col-md-4">
+                    <div class="card p-3">
+                        
+                        <h6>PLALION Device List</h6>
+            <div class="mb-3">
+                <label for="securityKey" class="form-label">Security Key</label>
+                <input type="text" class="form-control" id="securityKey">
+            </div>
+            <ul class="list-group device-list">
+                <li class="list-group-item">V01 <br><small>Space: 16.5 (㎡)<br>Serial Number: 8545968</small></li>
+                <li class="list-group-item">V02 <br><small>Space: 33.0 (㎡)<br>Serial Number: 2581304</small></li>
+                <li class="list-group-item">V03(3P, 10층) <br><small>Space: 33.0 (㎡)<br>Serial Number: 2581308</small></li>
+                <li class="list-group-item">V04 <br><small>Space: 33.0 (㎡)<br>Serial Number: 2641300</small></li>
+                <li class="list-group-item">1. 38a(y2) <br><small>Space: 33.0 (㎡)<br>Serial Number: 2581362</small></li>
+            </ul>
+            <button class="btn btn-danger mt-3 w-100">Remove Device</button>
+                    </div>
+                </div>
+
+                <!-- Device Information and Settings Section -->
+                <div class="col-md-8">
+                    <div class="row">
+                        <h5>Device Information</h5>
+            <div class="device-info">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Location:</strong> V01</p>
+                        <p><strong>Serial Number:</strong> 8545968</p>
+                        <p><strong>Security Name:</strong> 버스정 클린</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Space(㎡):</strong> 16.5</p>
+                        <p><strong>Device ID:</strong> 51</p>
+                        <p><strong>MAC Address:</strong> 48:27:E8:22:66:B1</p>
+                        <p><strong>Key Valid Time:</strong> 2044-01-01 00:00:00</p>
+                    </div>
+                </div>
+            </div>
+
+            <h5>Operation Schedule (Sec)</h5>
+            <div class="device-info">
+                <div class="row mb-2">
+                    <div class="col-md-6">
+                        <p><strong>MODE A</strong></p>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Operate</span>
+                            <input type="number" class="form-control" placeholder="5">
+                            <span class="input-group-text">Pause</span>
+                            <input type="number" class="form-control" placeholder="5">
+                        </div>
+                        <button class="btn btn-custom w-100">Get</button>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>MODE B</strong></p>
+                        <div class="input-group mb-2">
+                            <span class="input-group-text">Operate</span>
+                            <input type="number" class="form-control" placeholder="5">
+                            <span class="input-group-text">Pause</span>
+                            <input type="number" class="form-control" placeholder="5">
+                        </div>
+                        <button class="btn btn-custom w-100">Setup</button>
+                    </div>
+                </div>
+            </div>
+
+            <h5>Sensing</h5>
+            <div class="sensing">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="ozone" class="form-label">Ozone (ppb)</label>
+                        <input type="text" class="form-control" id="ozone">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="temperature" class="form-label">Temperature (°C)</label>
+                        <input type="text" class="form-control" id="temperature">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="humidity" class="form-label">Humidity (%)</label>
+                        <input type="text" class="form-control" id="humidity">
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <label for="dust" class="form-label">Dust (µg/m³)</label>
+                        <input type="text" class="form-control" id="dust">
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <label for="voc" class="form-label">VOC (ppm)</label>
+                        <input type="text" class="form-control" id="voc">
+                    </div>
+                    <div class="col-md-4 mt-2">
+                        <label for="co2" class="form-label">CO2 (ppb)</label>
+                        <input type="text" class="form-control" id="co2">
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <p><strong>Last Time:</strong> XXXX-XX-XX 00:00:00</p>
+                        <button class="btn btn-custom w-100">Get</button>
+                    </div>
+                </div>
+            </div>
+
+            <h5>Power Control</h5>
+            <div class="control-section text-center">
+                <div class="d-flex justify-content-around align-items-center">
+                    <!-- POWER Control -->
+                    <div>
+                        <p>POWER</p>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary">ON</button>
+                            <button class="btn btn-outline-secondary">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- MODE A Control -->
+                    <div>
+                        <p>MODE A</p>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary">ON</button>
+                            <button class="btn btn-outline-secondary">OFF</button>
+                        </div>
+                    </div>
+
+                    <!-- MODE B Control -->
+                    <div>
+                        <p>MODE B</p>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-outline-primary">ON</button>
+                            <button class="btn btn-outline-secondary">OFF</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    </div>
+                </div> <!-- End of Device Information and Settings Section -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,47 @@
+body {
+    background-color: #f8f9fa;
+    font-family: Arial, sans-serif;
+}
+.sidebar {
+    background-color: #f1f3f5;
+    padding: 15px;
+    border-right: 1px solid #dee2e6;
+    min-height: 100vh;
+}
+.device-list {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+.btn-status {
+    width: 32%;
+}
+.btn-connected { background-color: #28a745; color: white; }
+.btn-unconnected { background-color: #6c757d; color: white; }
+.btn-error { background-color: #dc3545; color: white; }
+.card {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+.header-text {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #495057;
+}
+.status-info {
+    font-size: 0.9em;
+    margin-top: 15px;
+}
+.status-label {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    margin-right: 10px;
+}
+.connected-label { background-color: #28a745; }
+.unconnected-label { background-color: #6c757d; }
+.error-label { background-color: #dc3545; }

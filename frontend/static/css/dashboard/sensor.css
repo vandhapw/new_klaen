@@ -1,0 +1,456 @@
+body {
+    background: url('/static/images/dashboard/img-jungrok.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(8px);
+    z-index: -1;
+}
+
+.container {
+    padding: 10px;
+    max-width: 100%;
+}
+
+h1 {
+    font-size: 1rem;
+}
+p {
+    font-size: 0.8rem;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center;
+    margin: 0;
+}
+
+/* Card styling */
+.card {
+    background-color: rgba(51, 51, 51, 0.8);
+    color: #fff;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    font-size: 0.7rem;
+}
+
+.progress-circle {
+    width: 300px;
+    height: 150px;
+    margin: 15px;
+    position: relative;
+    margin-left: 15%;
+}
+
+/* Icon centered inside the circle */
+.icon-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 5em;
+    color: #fff;
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+}
+
+
+
+/* Adjust the layout of value and status text */
+.value-display {
+    font-size: 4rem;
+    margin-top: 20px;
+    width: 100%;
+    text-align: center;
+}
+.status-display {
+    font-size: 1rem;
+    margin-top: 5px;
+}
+
+.col-md-4 {
+    flex: 0 10% 30% 30%; /* Three columns per row */
+    max-width: 25%;
+    margin: 0;
+    margin: 3% 1% 2% 1%;
+    margin-left: 6%;
+}
+
+.text-center{
+    font-size: 3rem;
+    margin-top: 10px;
+}
+
+.text-center.latest{
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.header-text {
+    text-align: center;
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.degree-symbol {
+    position: static; /* Use static positioning to follow the flow */
+    font-size: 1.5rem; /* Adjust size as needed */
+}
+
+/* Media Query for 1080x480 screen - Adjust layout to 3x3 grid */
+@media (max-width: 1080px) and (max-height: 480px) {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+        margin: 0;
+    }
+
+    .col-md-4 {
+        flex: 0 0 30%; /* Three columns per row */
+        max-width: 30%;
+        margin: 0;
+        margin-bottom: 2%;
+    }
+
+    .card{
+        padding: 4px;
+        font-size: 0.9rem;
+        height: 140px; /* Ensure height is adjusted based on content */
+        
+    }
+
+    h1 {
+        font-size: 0.9rem;
+    }
+
+    p {
+        font-size: 0.7rem;
+    }
+
+    .header-text {
+        text-align: center;
+        width: 100%;
+        font-size: 1rem;
+        margin-right: 5%;
+        
+    }
+
+    .value-display {
+        font-size: 1.5rem;
+        margin-top: 20px;
+        width: 100%;
+        text-align: center;
+    }
+    .status-display {
+        font-size: 0.8rem;
+        margin-top: 5px;
+    }
+    .progress-circle{
+        width: 300px;
+        height: auto;
+        min-height: 100px;
+        position: relative;
+        margin-top: 15%;
+    }
+
+    .arrow-btn {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2rem;
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+        z-index: 1;
+    }
+    .arrow-btn.left {
+        left: 10px;
+    }
+    .arrow-btn.right {
+        right: 10px;
+    }
+
+    .text-center{
+        font-size: 14pt;
+    }
+
+    .text-center.latest{
+        font-size: 14pt;
+        font-weight: bold;
+    }
+
+    .icon-center {
+        position: relative; /* Set relative positioning for the container */
+        font-size: 2rem; /* Adjust as needed for the icon size */
+        display: flex;
+        flex-direction: column; /* Stack elements vertically */
+        justify-content: center;
+        align-items: center;
+        margin-top: -40%;
+    }
+    
+    .degree-symbol {
+        position: static; /* Use static positioning to follow the flow */
+        font-size: 1rem; /* Adjust size as needed */
+    }
+}
+
+/* Media Query for 1080x840screen - Adjust layout to 3x3 grid */
+@media (max-width: 1080px) and (max-height: 840px) {
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px; /* Increase gap for better spacing */
+        justify-content: center;
+        margin: 0;
+        margin-top: 5%;
+    }
+
+    .col-md-4 {
+        flex: 0 0 30%; /* Three columns per row */
+        max-width: 30%;
+        margin: 0;
+        margin-bottom: 3%; /* Increased spacing between rows */
+    }
+
+    .card {
+        padding: 8px; /* Increase padding slightly */
+        font-size: 1rem; /* Adjust font size for readability */
+        height: 180px; /* Increase height to fit larger screen */
+    }
+
+    h1 {
+        font-size: 1.2rem; /* Increase font size */
+    }
+
+    p {
+        font-size: 0.9rem; /* Increase font size for readability */
+    }
+
+    .header-text {
+        text-align: center;
+        width: 100%;
+        font-size: 1rem;
+        margin-right: 5%;
+    }
+
+    .value-display {
+        font-size: 1.8rem; /* Increase font size */
+        margin-top: 15px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .status-display {
+        font-size: 1rem; /* Increase font size */
+        margin-top: 5px;
+    }
+
+    .progress-circle {
+        width: 250px; /* Reduce width slightly for larger screen */
+        height: auto;
+        min-height: 120px; /* Increase minimum height */
+        position: relative;
+        margin-top: 10%;
+    }
+
+    .arrow-btn {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 2.2rem; /* Slightly increase font size */
+        color: #fff;
+        background-color: rgba(0, 0, 0, 0.6);
+        border: none;
+        padding: 12px 24px; /* Increase padding for larger screen */
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    .arrow-btn.left {
+        left: 15px; /* Increase distance from left */
+    }
+
+    .arrow-btn.right {
+        right: 15px; /* Increase distance from right */
+    }
+
+    .text-center {
+        font-size: 16pt; /* Increase text size */
+    }
+
+    .text-center.latest {
+        font-size: 16pt;
+        font-weight: bold;
+    }
+
+    .icon-center {
+        position: relative;
+        font-size: 2.5rem; /* Increase icon size */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: -30%; /* Adjust positioning */
+    }
+
+    .degree-symbol {
+        position: static;
+        font-size: 1.2rem; /* Increase font size */
+    }
+}
+/* Arrow button styling */
+.arrow-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.6);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 1;
+}
+.arrow-btn.left {
+    left: 10px;
+}
+.arrow-btn.right {
+    right: 10px;
+}
+
+.progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.progress-container {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 100%;
+}
+
+.variable_value {
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+.text-container {
+    text-align: center;
+}
+
+
+
+.variable_status {
+    font-size: 0.75rem;
+}
+
+.status-average {
+    font-size: 0.75rem;
+}
+
+.progress-ring {
+    stroke: #ddd;
+    stroke-width: 5;
+}
+
+.progress-value {
+    stroke: #00bfff;
+    stroke-width: 5;
+    stroke-dasharray: 75;
+    stroke-dashoffset: 75;
+    transition: stroke-dashoffset 1s ease;
+}
+
+/* loading  */
+
+.container-loading {
+    display: none;
+    justify-content: center;
+    align-items: center; /* Center content vertically */
+    position: fixed; /* Cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Cover the entire viewport */
+    background: rgba(13, 13, 13, 0.8); /* Semi-transparent background */
+    z-index: 1000; /* Ensure it's above other elements */
+  }
+  
+  .loader {
+    display: grid;
+    grid-template-columns: repeat(2, 50px);
+    grid-template-rows: repeat(2, 50px);
+    gap: 10px;
+    perspective: 1000px;
+  }
+  
+  .cube {
+    width: 50px;
+    height: 50px;
+    background-color: #61dafb;
+    position: relative;
+    transform-style: preserve-3d;
+    animation: rotate 1.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  }
+  
+  @keyframes rotate {
+    0% {
+      transform: rotateX(0deg) rotateY(0deg);
+    }
+    100% {
+      transform: rotateX(360deg) rotateY(360deg);
+    }
+  }
+  
+  .cube:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .cube:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+  .cube:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+  .cube:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  /* Transition effect for fade out and fade in */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.fade-in {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+}

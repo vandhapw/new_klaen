@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Monitoring</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="/static/css/dashboard/sensor.css" rel="stylesheet">
+</head>
+<body class="bg-dark text-white">
+    <!-- Background overlay -->
+    <div class="background-overlay"></div>
+
+    <!-- Arrow buttons -->
+    <button class="arrow-btn left" id="previousButton" onclick="showPreviousPage()">
+        <i class="bi bi-chevron-left"></i>
+    </button>
+    <button class="arrow-btn right" id="nextButton" onclick="showNextPage()">
+        <i class="bi bi-chevron-right"></i>
+    </button>
+
+    <div class="container py-4">
+        <h1 class="text-center" id="sn_name">1공장 실내 공기질 모니터링 현황</h1>
+        <p class="text-center latest" id="dateTimeDisplay">2024.09.04 수요일 2:06</p>
+        
+        <div class="row g-4">
+            <!-- Temperature Card -->
+            <div class="col-md-4" style="max-height: 50%;">
+                <div class="card p-1 d-flex flex-row align-items-center variable">                    
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="temperature-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-thermometer"></i> -->
+                                <img src="https://img.icons8.com/?size=100&id=n3qm9sB9XJ3u&format=png&color=ffffff" alt="Recycle Icon" style="width: 1em; height: 1em;fill: whitesmoke;">
+                                <span class="degree-symbol">°C</span>
+                            </div>
+                                <!-- <div class="degree">°C</div> -->
+                            
+                        <!-- </div> -->
+                    </div>
+                    <div class="header-text">온도
+                        <div class="value-display mt-1" id="temperature-value">27°C</div>
+                    <div class="status-display mt-1" id="temperature-status">매우 좋음</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Humidity Card -->
+            <div class="col-md-4">
+                <div class="card p-1 d-flex flex-row align-items-center">
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="humidity-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-moisture"></i> -->
+                                <img src="https://img.icons8.com/?size=100&id=77654&format=png&color=ffffff" alt="Recycle Icon" style="width: 1em; height: 1em;fill: whitesmoke;">
+                              
+                                
+                                <span class="degree-symbol">%</span>
+                            </div>
+                    </div>
+                    <div class="header-text">습도
+                        <div class="value-display mt-1" id="humidity-value">60%</div>
+                        <div class="status-display mt-1" id="humidity-status">좋음</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fine Dust Card -->
+            <div class="col-md-4">
+                <div class="card p-1 d-flex flex-row align-items-center">
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="fine-dust-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-water"></i> -->
+                                <img src="https://img.icons8.com/?size=100&id=Q1utfSmJ1plD&format=png&color=ffffff" alt="Recycle Icon" style="width: 1em; height: 1em;fill: whitesmoke;">
+                                
+                                <span class="degree-symbol">ug/m3</span>
+                            </div>
+                    </div>
+                    <div class="header-text">미세먼지
+                        <div class="value-display mt-1" id="fine-dust-value">180</div>
+                        <div class="status-display mt-1" id="fine-dust-status">나쁨</div>
+                    </div>
+                    <!-- <div class="progress-circle me-3" id="fine-dust-circle">
+                        <div class="icon-center"><i class="bi bi-cloud-fog2"></i></div>
+                    </div>
+                    <div class="header-text">미세먼지
+                        <div class="variable-display mt-2" id="fine-dust-value">180</div>
+                    <div class="variable-status" id="fine-dust-status">나쁨</div>
+                    </div> -->
+                    
+                    
+                </div>
+            </div>
+
+            <!-- Ozone Card -->
+            <div class="col-md-4">
+                <div class="card p-1 d-flex flex-row align-items-center">
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="ozone-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-recycle"></i> -->
+                                <img src=" https://img.icons8.com/?size=100&id=31955&format=png&color=ffffff" alt="Recycle Icon" style="width: 1em; height: 1em;fill: whitesmoke;">
+                                <span class="degree-symbol">ppm</span>
+                            </div>
+                    </div>
+                    <div class="header-text">일산화탄소
+                        <div class="value-display mt-1" id="ozone-value">30</div>
+                        <div class="status-display mt-1" id="ozone-status">보통</div>
+                    </div>
+                    <!-- <div class="progress-circle me-3" id="co2-circle">
+                        <div class="icon-center"><i class="bi bi-cloud-drizzle"></i></div>
+                    </div>
+                    <div class="header-text">일산화탄소
+                        <div class="variable-display mt-2" id="co2-value">30 ppm</div>
+                        <div class="variable-status" id="co2-status">보통</div>
+                    </div> -->
+                    
+                   
+                </div>
+            </div>
+
+            <!-- CO2 Card -->
+            <div class="col-md-4">
+                <div class="card p-1 d-flex flex-row align-items-center">
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="co2-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-recycle"></i> -->
+                                <img src="https://img.icons8.com/?size=100&id=ch88lWKtJVyd&format=png&color=ffffff" alt="Recycle Icon" style="width: 1.2em; height: 1.2em;fill: whitesmoke;">
+                                <span class="degree-symbol">ppm</span>
+                            </div>
+                    </div>
+                    <div class="header-text">일산화탄소
+                        <div class="value-display mt-1" id="co2-value">30</div>
+                        <div class="status-display mt-1" id="co2-status">보통</div>
+                    </div>
+                    <!-- <div class="progress-circle me-3" id="co2-circle">
+                        <div class="icon-center"><i class="bi bi-cloud-drizzle"></i></div>
+                    </div>
+                    <div class="header-text">일산화탄소
+                        <div class="variable-display mt-2" id="co2-value">30 ppm</div>
+                        <div class="variable-status" id="co2-status">보통</div>
+                    </div> -->
+                    
+                   
+                </div>
+            </div>
+
+            <!-- VOCs Card -->
+            <div class="col-md-4">
+                <div class="card p-1 d-flex flex-row align-items-center">
+                    <div class="progress-circle me-1">
+                        <!-- <div class="progress-container"> -->
+                            <!-- SVG for the 270-degree progress bar -->
+                            <svg class="progress-bar" width="300" height="300" viewBox="0 0 42 42">
+                                <!-- Background arc -->
+                                <path class="progress-ring" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            
+                                <!-- Progress arc -->
+                                <path id="vocs-circle" 
+                                      class="progress-value" 
+                                      d="M21 21 m-11.254 11.254 a 15.91549430918954 15.91549430918954 135 1 1 22.508 0" 
+                                      fill="transparent" 
+                                      stroke-linecap="round"/>
+                            </svg>
+                            <div class="icon-center">
+                                <!-- <i class="bi bi-recycle"></i> -->
+                                <img src="https://img.icons8.com/?size=100&id=SF72uvWpN9Rc&format=png&color=ffffff" alt="Recycle Icon" style="width: 1.2em; height: 1.2em;fill: whitesmoke;">
+                                <span class="degree-symbol">ppm</span>
+                            </div>
+                    </div>
+                    <div class="header-text">휘발성 유기 화합물
+                        <div class="value-display mt-1" id="vocs-value">180</div>
+                        <div class="status-display mt-1" id="vocs-status">나쁨</div>
+                    </div>
+                    <!-- <div class="progress-circle me-3" id="vocs-circle">
+                        <div class="icon-center"><i class="bi bi-exclamation-circle"></i></div>
+                    </div>
+                    <div class="header-text">VOC
+                        <div class="variable-display mt-2" id="vocs-value">180 ppm</div>
+                        <div class="variable-status" id="vocs-status">나쁨</div>
+                    </div> -->
+                    
+                  
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+     <!-- loading  -->
+     <!-- Loading cube -->
+    <div class="container-loading justify-content-center align-items-center position-absolute top-0 bottom-0 start-0 end-0" id="cube-loading">
+        <div class="loader">
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+            <div class="cube"></div>
+        </div>
+    </div>
+
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/progressbar.js/1.1.0/progressbar.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/progressbar.js"></script>
+    <script>
+
+        function setProgress(elementId, value, maxValue) {
+            const progressElement = document.getElementById(elementId);
+            const maxOffset = 75; // Total length of the 270-degree arc
+            const normalizedValue = (value / maxValue) * maxOffset;
+            const offset = maxOffset - normalizedValue; // Adjust visible length of arc
+            progressElement.style.strokeDashoffset = offset;
+
+                                // Calculate offset based on percentage of the three-quarter circle
+                                // const offset = maxOffset * (1 - value / 100);
+                                // progressElement.style.strokeDashoffset = offset; // Adjust visible length of arc
+        }
+        
+        let dataRecords = [];
+        let averageRecords = [];
+        let timestamp = "";
+        let currentIndex = 0;
+
+        // Fetch data from the API
+        async function fetchData() {
+            const loading_cube = document.getElementById("cube-loading");
+            
+            try {
+                loading_cube.style.display = "flex";
+                // document.querySelector('.text-center').style.display = 'none';
+                // document.querySelector('.text-center.latest').style.display = 'none';
+
+
+                const response = await fetch("http://92.118.59.12/klaen/api/plalion-sensor-mqtt/");
+                const data = await response.json();
+                dataRecords = data.results;
+                averageRecords = data.average;
+                timestamp = data.timestamp;
+                console.log(dataRecords);
+                loading_cube.style.display = "none";
+                
+                // Use the first data entry (or modify as needed for specific entries)
+                if (dataRecords.length > 0) {
+                    // currentIndex = 0;
+                    // const latestData = data[0];
+                    // dataRecords = data;
+                    
+                    // Populate the page with the latest data
+                    updatePageContent(dataRecords[currentIndex]);
+                    // generateSerialNumberButtons();
+                    // currentIndex=(currentIndex+1)%dataRecords.length;
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+            finally {
+                // Hide the loading spinner once fetching is complete
+                // loading_cube.style.display = "none";
+                // document.querySelector('.text-center').style.display = 'block';
+                // document.querySelector('.text-center.latest').style.display = 'block';
+            }
+        }
+
+        function updatePageContent(data) {
+            
+            document.getElementById("sn_name").textContent = data.title;
+            const timestamp = new Date(data.timestamp).toLocaleString("en-GB", { hour12: false });
+            document.getElementById("dateTimeDisplay").textContent = data.last_time;
+    
+            // Update each parameter with fetched data
+            document.getElementById("temperature-value").textContent = `${data.temp_val}`;
+            document.getElementById("temperature-status").textContent = getStatus(data.temp_val, "temperature");
+            const temperaturePercent = data.temp_val; // Assuming `data.temperature` is a percentage
+            setProgress("temperature-circle", temperaturePercent, 100);
+            const st = getStatus(data.temp_val, "temperature");
+            const ct = getColor(st);
+            document.getElementById("temperature-status").innerHTML = `<span class="badge" style="background-color:${ct}">${st}</span>`
+            updateProgressBarColor("temperature-circle", ct);
+            
+            document.getElementById("humidity-value").textContent = `${data.humi_val}`;
+            document.getElementById("humidity-status").textContent = getStatus(data.humi_val, "humidity");
+            // Humidity progress
+            const humidityPercent = data.humi_val;
+            setProgress("humidity-circle", humidityPercent,100);
+            const sh = getStatus(data.humi_val, "humidity");
+            const ch = getColor(sh);
+            document.getElementById("humidity-status").innerHTML = `<span class="badge" style="background-color:${ch}">${sh}</span>`
+            updateProgressBarColor("humidity-circle", ch);
+           
+            document.getElementById("ozone-value").textContent = `${data.ozone_val}`;
+            document.getElementById("ozone-status").textContent = getStatus(data.ozone_val, "ozone");
+            // Ozone progress
+            const ozonePercent = data.ozone_val;
+            setProgress("ozone-circle", ozonePercent, 0.1);
+            const so = getStatus(data.ozone_val, "ozone");
+            const co = getColor(so);
+            document.getElementById("ozone-status").innerHTML = `<span class="badge" style="background-color:${co}">${so}</span>`
+            updateProgressBarColor("ozone-circle", co);
+
+            document.getElementById("fine-dust-value").textContent = `${data.dust_val}`;
+            document.getElementById("fine-dust-status").textContent = getStatus(data.dust_val, "dust");
+            // Fine Dust progress
+            const fineDustPercent = data.dust_val;
+            setProgress("fine-dust-circle", fineDustPercent, 500);
+            const sd = getStatus(data.dust_val, "dust");
+            const cd = getColor(sd);
+            document.getElementById("fine-dust-status").innerHTML = `<span class="badge" style="background-color:${cd}">${sd}</span>`
+            updateProgressBarColor("fine-dust-circle", cd);
+            
+            document.getElementById("co2-value").textContent = `${data.co2_val}`;
+            document.getElementById("co2-status").textContent = getStatus(data.co2_val, "co2");
+           // CO2 progress
+            const co2Percent = data.co2;
+            setProgress("co2-circle", co2Percent, 10000);
+            const sc = getStatus(data.co2_val, "co2");
+            const cc = getColor(sc);
+            document.getElementById("co2-status").innerHTML = `<span class="badge" style="background-color:${cc}">${sc}</span>`
+            updateProgressBarColor("co2-circle", ct);
+            
+            document.getElementById("vocs-value").textContent = `${data.voc_val.toFixed(3)}`;
+            document.getElementById("vocs-status").textContent = getStatus(data.voc_val, "voc");
+            // vocsCircle.animate(data.voc / 1000);
+            // vocsCircle.path.setAttribute("stroke", getColor(data.voc, "voc"));
+             // VOC progress
+            const vocPercent = data.voc_val;
+            setProgress("vocs-circle", vocPercent, 10.000);
+            const sv = getStatus(data.voc_val, "voc");
+            const cv = getColor(sv);
+            document.getElementById("vocs-status").innerHTML = `<span class="badge" style="background-color:${cv}">${sv}</span>`
+            updateProgressBarColor("vocs-circle", cv);
+        
+            // updateSerialNumberButtonState(data.serial_number);
+        }
+
+        
+        function updateProgressBarColor(elementId, color) {
+            const progressElement = document.getElementById(elementId);
+            if (progressElement) {
+                progressElement.style.stroke = color;
+            }
+        }
+        setProgress("temperature-circle", 0); // 75% progress for temperature
+        setProgress("humidity-circle", 0); 
+        setProgress("ozone-circle", 0);    // 60% progress for humidity
+        setProgress("fine-dust-circle", 0);   // 30% progress for fine dust
+        setProgress("co2-circle", 0);         // 80% progress for CO2
+        setProgress("vocs-circle", 0);         // 90% progress for VOC
+
+        // let currentIndex = 0;
+
+        // Initialize circular progress bars only once
+      //  const temperatureCircle = new ProgressBar.Circle(document.getElementById("temperature-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+        //const humidityCircle = new ProgressBar.Circle(document.getElementById("humidity-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+        //const fineDustCircle = new ProgressBar.Circle(document.getElementById("fine-dust-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+        //const pmCircle = new ProgressBar.Circle(document.getElementById("pm-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+        //const co2Circle = new ProgressBar.Circle(document.getElementById("co2-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+        //const vocsCircle = new ProgressBar.Circle(document.getElementById("vocs-circle"), { strokeWidth: 8, trailWidth: 5, duration: 1000 });
+
+        // function updatePageContent() {
+        //     const currentPage = pages[currentIndex];
+        //     document.getElementById("dateTimeDisplay").textContent = currentPage.dateTime;
+
+        //     // Update each parameter
+        //     document.getElementById("temperature-value").textContent = currentPage.temperature.value;
+        //     document.getElementById("temperature-status").textContent = currentPage.temperature.status;
+        //     setProgress("temperature-circle", currentPage.temperature.progress)
+        //     updateProgressBarColor("temperature-circle", currentPage.temperature.color);
+            
+        //     document.getElementById("humidity-value").textContent = currentPage.humidity.value;
+        //     document.getElementById("humidity-status").textContent = currentPage.humidity.status;
+        //     setProgress('humidity-circle',currentPage.humidity.progress)
+        //     updateProgressBarColor("humidity-circle", currentPage.humidity.color);
+            
+        //     document.getElementById("fine-dust-value").textContent = currentPage.fineDust.value;
+        //     document.getElementById("fine-dust-status").textContent = currentPage.fineDust.status;
+        //     setProgress('fine-dust-circle', currentPage.fineDust.progress)
+        //     updateProgressBarColor("fine-dust-circle", currentPage.fineDust.color);
+           
+        //     document.getElementById("co2-value").textContent = currentPage.co2.value;
+        //     document.getElementById("co2-status").textContent = currentPage.co2.status;
+        //     setProgress('co2-circle', currentPage.co2.progress)
+        //     updateProgressBarColor("co2-circle", currentPage.co2.color);
+            
+        //     document.getElementById("vocs-value").textContent = currentPage.vocs.value;
+        //     document.getElementById("vocs-status").textContent = currentPage.vocs.status;
+        //     setProgress('vocs-circle', currentPage.vocs.progress)
+        //     updateProgressBarColor("vocs-circle", currentPage.vocs.color);
+        // }
+
+        // Utility functions to determine status and color
+        function getStatus(value, type) {
+            switch (type) {
+            case "temperature":
+                if (value >= 0 && value <= 10) return "위험"; // Danger
+                if (value >= 11 && value <= 17) return "나쁨"; // Bad
+                if (value >= 18 && value <= 20) return "보통"; // Commonly
+                if (value >= 21 && value <= 25) return "좋음"; // Good
+                if (value >= 26 && value <= 28) return "보통"; // Commonly
+                if (value >= 29 && value <= 33) return "나쁨"; // Bad
+                if (value >= 34) return "위험"; // Danger
+                return "Unknown";
+            case "humidity":
+                if (value >= 0 && value <= 20) return "위험"; // Danger
+                if (value >= 21 && value <= 30) return "나쁨"; // Bad
+                if (value >= 31 && value <= 40) return "보통"; // Commonly
+                if (value >= 41 && value <= 60) return "좋음"; // Good
+                if (value >= 61 && value <= 70) return "보통"; // Commonly
+                if (value >= 71 && value <= 80) return "나쁨"; // Bad
+                if (value >= 81) return "위험"; // Danger
+                return "Unknown";
+            case "ozone":
+                if (value >= 0.000 && value <= 0.054) return "좋음"; // Good
+                if (value >= 0.055 && value <= 0.070) return "보통"; // Commonly
+                if (value >= 0.071 && value <= 0.085) return "나쁨"; // Bad
+                if (value >= 0.086) return "위험"; // Very bad
+                return "Unknown";
+            case "dust":
+                if (value >= 0 && value <= 15) return "좋음"; // Good
+                if (value >= 16 && value <= 35) return "보통"; // Commonly
+                if (value >= 36 && value <= 75) return "나쁨"; // Bad
+                if (value >= 76) return "위험"; // Very bad
+                return "Unknown";
+            case "co2":
+                if (value >= 0 && value <= 500) return "좋음"; // Good
+                if (value >= 501 && value <= 700) return "보통"; // Commonly
+                if (value >= 701 && value <= 1000) return "나쁨"; // Bad
+                if (value >= 1001) return "위험"; // danger
+                return "Unknown";
+            case "voc":
+                if (value >= 0 && value <= 0.300) return "좋음"; // Good
+                if (value >= 0.301 && value <= 1.000) return "보통"; // Commonly
+                if (value >= 1.001 && value <= 3.000) return "나쁨"; // Bad
+                if (value >= 3.001) return "위험"; // danger
+                return "Unknown";
+            // Add more cases for other types if needed
+            default:
+                return "Unknown";
+         }
+       }
+    
+        function getColor(status) {
+            if (status === "좋음") return "#03DF17";
+            if (status === "보통") return "#F4F704";
+            if (status === "나쁨") return "#FE9B03";
+            if (status === "위험") return "#F3051A";
+        }
+
+         // Next and Previous Button Functions
+        // function showNextPage() {
+        //     // console.log("Next Page");
+        //     if (dataRecords.length > 0) {
+        //         currentIndex = (currentIndex + 1) % dataRecords.length; 
+        //         // console.log(currentIndex, dataRecords.length) // Move to the next record in a circular fashion
+        //         updatePageContent(dataRecords[currentIndex]);
+        //     }
+        // }
+
+        // function showPreviousPage() {
+        //     if (dataRecords.length > 0) {
+        //         currentIndex = (currentIndex - 1 + dataRecords.length) % dataRecords.length;  // Move to the previous record in a circular fashion
+        //         updatePageContent(dataRecords[currentIndex]);
+        //     }
+        // }
+
+        function showNextPage() {
+            if (dataRecords.length > 0) {
+                // Add fade-out class
+                const container = document.querySelector(".container");
+                container.classList.add("fade-out");
+
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % dataRecords.length;
+                    updatePageContent(dataRecords[currentIndex]);
+
+                    // Remove fade-out and add fade-in
+                    container.classList.remove("fade-out");
+                    container.classList.add("fade-in");
+
+                    // Remove fade-in class after animation to reset
+                    setTimeout(() => {
+                        container.classList.remove("fade-in");
+                    }, 500); // Duration should match CSS transition
+                }, 500); // Duration should match CSS transition
+            }
+        }
+
+        function showPreviousPage() {
+            if (dataRecords.length > 0) {
+                // Add fade-out class
+                const container = document.querySelector(".container");
+                container.classList.add("fade-out");
+
+                setTimeout(() => {
+                    currentIndex = (currentIndex - 1 + dataRecords.length) % dataRecords.length;
+                    updatePageContent(dataRecords[currentIndex]);
+
+                    // Remove fade-out and add fade-in
+                    container.classList.remove("fade-out");
+                    container.classList.add("fade-in");
+
+                    // Remove fade-in class after animation to reset
+                    setTimeout(() => {
+                        container.classList.remove("fade-in");
+                    }, 500); // Duration should match CSS transition
+                }, 500); // Duration should match CSS transition
+            }
+        }
+
+        // Event listeners for buttons
+        const nextButton = document.getElementById("nextButton");
+        const previousButton = document.getElementById("previousButton");
+
+        if (nextButton) {
+            nextButton.addEventListener("click", showNextPage);
+        } else {
+            console.error("Element with ID 'nextButton' not found.");
+        }
+
+        if (previousButton) {
+            previousButton.addEventListener("click", showPreviousPage);
+        } else {
+            console.error("Element with ID 'previousButton' not found.");
+        }
+    
+        document.addEventListener("DOMContentLoaded", function () {
+            // Initial fetch
+            fetchData();
+
+            // Fetch data and update to the next index every 7 seconds
+            const intervalId = setInterval(async () => {
+                console.log("Fetching data...", currentIndex);
+                await fetchData();
+                if (dataRecords.length > 0) {
+                    currentIndex = (currentIndex + 1) % dataRecords.length;
+                    updatePageContent(dataRecords[currentIndex]); // Always update index[1]
+                }
+            }, 7000);
+
+            // Clear interval on page unload to avoid memory leaks
+            window.onunload = () => {
+                clearInterval(intervalId);
+            };
+        });
+    </script>
+</body>
+</html>
