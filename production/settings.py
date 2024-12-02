@@ -126,7 +126,7 @@ else : # running in local computer
             'NAME': 'server_db',
             'CLIENT':{
                 'host': 'localhost',
-                'port': 27019,
+                'port': 27018,
                 'authSource': 'admin',
             }
         # 'HOST': '10.12.179.2',
