@@ -124,9 +124,14 @@ else : # running in local computer
         'default': {
            'ENGINE': 'djongo',
             'NAME': 'server_db',
+            'CLIENT':{
+                'host': 'localhost',
+                'port': 27019,
+                'authSource': 'admin',
+            }
         # 'HOST': '10.12.179.2',
-            'HOST': 'localhost',
-            'PORT': 27017,
+            # 'HOST': 'localhost',
+            # 'PORT': 27017,
         }
     }
 
