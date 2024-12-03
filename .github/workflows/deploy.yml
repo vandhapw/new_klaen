@@ -36,5 +36,5 @@ jobs:
           git pull origin main    # Pull latest changes
           source ~/miniconda3/etc/profile.d/conda.sh
           conda activate django_env
-          systemctl restart gunicorn        # Restart Gunicorn
+          systemctl restart gunicorn_production.service        # Restart Gunicorn
           systemctl reload nginx
