@@ -23,7 +23,7 @@ else : # running in local computer
     MONGO_DB = "server_db"
     MONGO_USER = ""
     MONGO_PASS = ""
-    dbLocation = f'mongodb://{MONGO_HOST}:27018/{MONGO_DB}'
+    dbLocation = f'mongodb://{MONGO_HOST}:27019/{MONGO_DB}'
 
 
 
