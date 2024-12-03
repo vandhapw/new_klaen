@@ -31,7 +31,7 @@ urlpatterns = [
     path('klaen/', include('klaen.urls')),
     #============================================================
     # November Updated
-    path('klaen/monitoring/', monitoring_page, name='klaen-monitoring-page'),
+    path('klaen/monitorings/', monitoring_page, name='klaen-monitoring-page'),
     path('apps/', apps_page, name='apps-page'),
     
     
