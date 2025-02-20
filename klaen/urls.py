@@ -32,6 +32,10 @@ urlpatterns = [
     path('chart-sn', chart_sn, name='chart-sn'),
     path('api/get-chart-sn', get_chart_sn, name='get-chart-sn'),
     
+    # New updated January 2025
+    path('api/sn_detail_information', get_detail_sn, name='sn-detail-information'),
+    path('api/insert_activity_log', device_activity_log, name='device-activity-log'),
+    
     
    
     

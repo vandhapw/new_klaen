@@ -19,7 +19,7 @@ body {
 }
 
 h1 {
-    font-size: 1rem;
+    font-size: 3rem;
 }
 p {
     font-size: 0.8rem;
@@ -31,6 +31,7 @@ p {
     gap: 5px;
     justify-content: center;
     margin: 0;
+    margin-top: 4rem;
 }
 
 /* Card styling */
@@ -112,6 +113,11 @@ p {
 
 /* Media Query for 1080x480 screen - Adjust layout to 3x3 grid */
 @media (max-width: 1080px) and (max-height: 480px) {
+    .py-4 {
+        padding-top: 3rem !important;
+        padding-bottom: 1.5rem !important;
+    }
+    
     .row {
         display: flex;
         flex-wrap: wrap;
@@ -188,7 +194,7 @@ p {
     }
 
     .text-center{
-        font-size: 14pt;
+        font-size: 3rem;
     }
 
     .text-center.latest{
@@ -213,31 +219,33 @@ p {
 }
 
 /* Media Query for 1080x840screen - Adjust layout to 3x3 grid */
-@media (max-width: 1080px) and (max-height: 840px) {
+@media (max-width: 1080px) and (max-height: 820px) {
+    .py-4 {
+        padding-top: 3rem !important;
+        padding-bottom: 1.5rem !important;
+    }
     .row {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px; /* Increase gap for better spacing */
+        gap: 5px; /* Increase gap for better spacing */
         justify-content: center;
         margin: 0;
-        margin-top: 5%;
+        margin-top: 4rem;
     }
 
     .col-md-4 {
-        flex: 0 0 30%; /* Three columns per row */
-        max-width: 30%;
-        margin: 0;
-        margin-bottom: 3%; /* Increased spacing between rows */
+        max-width: 26%;
+        margin: 3% 1% 2% 1%; /* Increased spacing between rows */
     }
 
     .card {
         padding: 8px; /* Increase padding slightly */
         font-size: 1rem; /* Adjust font size for readability */
-        height: 180px; /* Increase height to fit larger screen */
+        height: 200px; /* Increase height to fit larger screen */
     }
 
     h1 {
-        font-size: 1.2rem; /* Increase font size */
+        font-size: 3rem; /* Increase font size */
     }
 
     p {
@@ -293,7 +301,7 @@ p {
     }
 
     .text-center {
-        font-size: 16pt; /* Increase text size */
+        font-size: 3rem; /* Increase text size */
     }
 
     .text-center.latest {

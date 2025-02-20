@@ -20,6 +20,8 @@ from bson import ObjectId, json_util
 import requests
 from rest_framework import status
 import pytz
+from django.middleware.csrf import get_token
+from django.views.decorators.csrf import csrf_exempt
 
 
 # client, ssh_tunnel = get_database_client()
@@ -30,6 +32,7 @@ sensor_data_collection = db.klaen_arduino_sensor
 weather_data_collection = db.weather_api
 plalion_data_collection = db.plalion_klaen_sensor
 plalion_company_data_collection = db.plalion_company_sensor
+plalion_activity_log = db.plalion_activity_log
 
 jungrok_url = "http://54.180.153.12:3000/plalion/"
 
@@ -977,7 +980,80 @@ def get_chart_sn(request):
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
     
+    
+# ============= 2025 January =================
+@csrf_exempt
+def get_detail_sn(request):
+    detail_info = []
+    if request.method == 'POST':
+        serial_number = request.POST.get('serial_number')
+        print('serial_number',serial_number)
 
+        if not serial_number:
+            return JsonResponse({"error": "serial_number is required"}, status=400)
+
+        headers = {
+            "Content-Type": "application/json"
+        }
+
+        # Check if device exists
+        REST_API_EXIST = jungrok_url + 'device/exist/serial_number'
+        REST_API_DEVICE_INFORMATION = jungrok_url + 'device/get/data'
+        REST_API_DEVICE_SENSOR = jungrok_url + 'status/get'
+        data_exist = {"serial_num": serial_number}
+        
+        try:
+            response_exist = requests.post(REST_API_EXIST, data=json.dumps(data_exist), headers=headers)
+            if response_exist.status_code == 200:
+                response_data_exist = response_exist.json()
+                device_rows = response_data_exist.get("rows", [])
+                device_id = device_rows[0].get("did")
+                data_info = {"did":device_id}
+                response_device_info = requests.post(REST_API_DEVICE_INFORMATION, data=json.dumps(data_info), headers=headers)
+                response_device_sensor = requests.post(REST_API_DEVICE_SENSOR, data=json.dumps(data_exist), headers=headers)
+                if response_device_info.status_code == 200 and response_device_sensor.status_code == 200:
+                    response_data_device = response_device_info.json()
+                    response_data_device_sensor = response_device_sensor.json()
+                    sensor_rows = response_data_device_sensor.get("rows", [])
+                    info_rows = response_data_device.get("rows", [])
+                    detail_info.append(info_rows[0])
+                    detail_info.append(sensor_rows[0])
+                    
+                else:
+                    return JsonResponse({"error": "Failed to fetch device data"}, status=response_device_info.status_code)
+
+            else:
+                return JsonResponse({"error": "Failed to fetch device existence data"}, status=response_exist.status_code)
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"error": f"API request failed: {str(e)}"}, status=500)
+
+    return JsonResponse(detail_info, safe=False)
+
+@csrf_exempt
+def device_activity_log(request):
+    if request.method == 'POST':
+        serial_number = request.POST.get('serial_number')
+        start_action = request.POST.get('start_action')
+        end_action = request.POST.get('end_action')
+        action = request.POST.get('action')
+        
+        # store into mongodb database in plalion_activity_log collection
+        data = {
+            "serial_number": serial_number,
+            "start_action": start_action,
+            "end_action": end_action,
+            "action": action
+        }
+        plalion_activity_log.insert_one(data)
+        return JsonResponse({"message": "Activity log added successfully"}, status=201)
+    else:
+        return JsonResponse({"error": "Invalid request method"}, status=405)
+    
+        
+        
+        
+
+        
 
     
 
